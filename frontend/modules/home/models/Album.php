@@ -98,6 +98,7 @@ class Album extends \yii\db\ActiveRecord
                 $this->created_by = Yii::$app->user->identity->id;
                 $this->created_at = time();
                 $this->updated_at = time();
+//                 $this->thumb = $this->getCoverPhoto();
                 $this->cover_id = self::COVER_NONE;
             }
             if (!empty($this->status_password)) {
@@ -188,6 +189,7 @@ class Album extends \yii\db\ActiveRecord
             'path' => Yii::getAlias('@web/uploads/user/') . $this->created_by . '/' . $info['name'], //存储路径
             'store_name' => $info['name'], //保存的名称
             'album_id' => $this->id,
+            'thumb' =>self::getCoverPhoto(),
             'created_at' => time(),
             'created_by' => Yii::$app->user->id, 
         ])->execute();
