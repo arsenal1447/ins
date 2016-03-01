@@ -73,6 +73,10 @@ class Feed extends \yii\db\ActiveRecord
                 $this->type = 'post';
                 $this->user_id = Yii::$app->user->id;
                 $this->created_at = time();
+//                 $this->comment_count = 0;//add by zxx
+                $this->template = 0;//add by zxx
+//                 $this->repost_count = 0;//add by zxx
+                $this->feed_data = 0;//add by zxx
                 Yii::$app->userData->updateKey('feed_count', Yii::$app->user->id);
             }
            return true;
@@ -80,7 +84,7 @@ class Feed extends \yii\db\ActiveRecord
               return false;
        }
     }
-    
+
     public function scenarios()
     {
         return [
@@ -99,11 +103,16 @@ class Feed extends \yii\db\ActiveRecord
         switch ($type) {
             //发表日志
             case 'blog':
+                //die('xxxx');
                 $setarr['type'] = 'postblog';
                 $setarr['template'] = '<b>{title}</b><br>{content}';
+                $setarr['content'] = '<b>{title}</b><br>{content}';//add by zxx
+//                 $setarr['comment_count'] = 1;//add by zxx
+//                 $setarr['repost_count'] = 1;//add by zxx
                 break;
             //转发
             case 'repost':
+                die('yyy');
                 $setarr['type'] = 'repost';
                 if (empty($data['{comment}'])) {
                     array_shift($data);
@@ -129,6 +138,10 @@ class Feed extends \yii\db\ActiveRecord
         $setarr['feed_data'] = serialize($data);
         $setarr['user_id'] = Yii::$app->user->id;
         $setarr['created_at'] = time();
+        echo "<pre>";
+        print_R($setarr);
+        echo "</pre>";
+        //die('ppp');
         Yii::$app->userData->updateKey('feed_count', Yii::$app->user->id);
         return Yii::$app->db->createCommand()->insert('{{%home_feed}}', $setarr)->execute();
     }

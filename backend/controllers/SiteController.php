@@ -19,7 +19,7 @@ class SiteController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup','login'],//add by zxx for fixing the verifycode
+//                 'only' => ['logout', 'signup','login'],//add by zxx for fixing the verifycode
                 'rules' => [
                     [
                         'actions' => ['login', 'error', 'captcha'],

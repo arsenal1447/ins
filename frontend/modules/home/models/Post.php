@@ -78,6 +78,8 @@ class Post extends \yii\db\ActiveRecord
             if ($this->isNewRecord) {
                 $this->user_id = Yii::$app->user->id;
                 $this->created_at = time();
+                $this->updated_at = time();//add by zxx
+                $this->explore_status = 1;//add by zxx
                 Yii::$app->userData->updateKey('post_count', Yii::$app->user->id);
             }
             //标签分割
@@ -95,7 +97,7 @@ class Post extends \yii\db\ActiveRecord
      *string the URL that shows the detail of the post
      */
     public function getUrl()
-    {       
+    {
         return Url::toRoute(['/user/view/view-post', 'id' => $this->id]);
     }
 
