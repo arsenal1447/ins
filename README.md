@@ -1,3 +1,6 @@
+
+这个是抄袭别人的代码,非原创,原文地址 :https://github.com/shi-yang/iisns
+
 iisns - 地球村入口
 ------------------
 
