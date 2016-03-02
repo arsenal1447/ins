@@ -36,8 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'role',
             'email:email',
             'status',
-            'created_at',
-            'updated_at',
+//             'created_at:datetime',
+//             'updated_at:datetime',
+            [
+                'label' => 'created_at',
+                'value'=>$model->convertDate($model->created_at),
+            ],
+            
+            [
+                'label' => 'updated_at',
+                'value'=>$model->convertDate($model->updated_at),
+            ],
             'avatar',
         ],
     ]) ?>

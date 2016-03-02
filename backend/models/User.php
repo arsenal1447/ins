@@ -69,6 +69,29 @@ class User extends \yii\db\ActiveRecord
             'avatar' => Yii::t('app', 'Avatar'),
         ];
     }
+    
+    
+    /**
+     * This is invoked before the record is saved.
+     * @return boolean whether the record should be saved.
+     */
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                if(isset($this->new_password)){
+                    $this->password_hash = Yii::$app->security->generatePasswordHash($this->new_password);
+                }
+                $this->auth_key = Yii::$app->security->generateRandomString();
+                $this->created_at = time();
+                $this->updated_at = time();
+                $this->status = 1;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 
     /**
      * Generates password hash from password and sets it to the model
@@ -76,7 +99,16 @@ class User extends \yii\db\ActiveRecord
      * @param string $password
      */
     public function setPassword($password)
-    {
+    {   
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+    }
+    
+    /**
+     * @desc 转化时间格式
+     * @param 时间戳格式  $datetime
+     * @return 返回 2016-03-02 03:07:49 这种格式
+     */
+    public function convertDate($datetime){
+        return date('Y-m-d H:i:s',$datetime);
     }
 }
