@@ -191,4 +191,19 @@ class SiteController extends BaseController
         
         return $this->render('develop');
     }
+    
+    
+    /**
+     * @desc 测试验证码
+     * @return Ambigous <string, string>
+     */
+    public function actionCapcha()
+    {
+        if (!Yii::$app->user->isGuest) {
+            Yii::setAlias('avatar', '@web/uploads/user/avatar/');
+            $this->layout = '@app/modules/user/views/layouts/user.php';
+        }
+    
+        return $this->render('develop');
+    }
 }

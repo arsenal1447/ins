@@ -52,6 +52,7 @@ return [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'showScriptName' => false,
             'rules' => [
                 '/' => '/user/dashboard/index',
                 '<id:[\x{4e00}-\x{9fa5}a-zA-Z0-9_]*>' => 'user/view',

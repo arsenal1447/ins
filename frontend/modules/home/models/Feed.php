@@ -76,7 +76,7 @@ class Feed extends \yii\db\ActiveRecord
 //                 $this->comment_count = 0;//add by zxx
                 $this->template = 0;//add by zxx
 //                 $this->repost_count = 0;//add by zxx
-                $this->feed_data = 0;//add by zxx
+//                 $this->feed_data = 0;//add by zxx
                 Yii::$app->userData->updateKey('feed_count', Yii::$app->user->id);
             }
            return true;
@@ -103,7 +103,6 @@ class Feed extends \yii\db\ActiveRecord
         switch ($type) {
             //发表日志
             case 'blog':
-                //die('xxxx');
                 $setarr['type'] = 'postblog';
                 $setarr['template'] = '<b>{title}</b><br>{content}';
                 $setarr['content'] = '<b>{title}</b><br>{content}';//add by zxx
@@ -112,7 +111,8 @@ class Feed extends \yii\db\ActiveRecord
                 break;
             //转发
             case 'repost':
-                die('yyy');
+                $repostData = Yii::$app->request->post();
+                $repostContent = $repostData['Feed']['content'];
                 $setarr['type'] = 'repost';
                 if (empty($data['{comment}'])) {
                     array_shift($data);
@@ -120,7 +120,6 @@ class Feed extends \yii\db\ActiveRecord
                 } else {
                     $comment = '{comment}<br>';
                 }
-
                 if (empty($data['{content}'])) {
                     array_shift($data);
                     $data['{feed_data}'] = array_merge(['{username}' => $data['{username}']], $data['{feed_data}']);
@@ -128,6 +127,7 @@ class Feed extends \yii\db\ActiveRecord
                     $data = $data['{feed_data}'];
                 } else {
                     $setarr['template'] = '<b>{username}</b>：{content}';
+                    $setarr['content'] = $repostContent;
                 }
                 $setarr['template'] .= $comment;
                 break;
@@ -141,7 +141,6 @@ class Feed extends \yii\db\ActiveRecord
         echo "<pre>";
         print_R($setarr);
         echo "</pre>";
-        //die('ppp');
         Yii::$app->userData->updateKey('feed_count', Yii::$app->user->id);
         return Yii::$app->db->createCommand()->insert('{{%home_feed}}', $setarr)->execute();
     }
