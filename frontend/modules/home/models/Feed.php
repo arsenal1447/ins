@@ -111,8 +111,8 @@ class Feed extends \yii\db\ActiveRecord
                 break;
             //转发
             case 'repost':
-                $repostData = Yii::$app->request->post();
-                $repostContent = $repostData['Feed']['content'];
+                $repostData = Yii::$app->request->post();//add by zxx
+                $repostContent = $repostData['Feed']['content'];//add by zxx
                 $setarr['type'] = 'repost';
                 if (empty($data['{comment}'])) {
                     array_shift($data);
@@ -127,7 +127,7 @@ class Feed extends \yii\db\ActiveRecord
                     $data = $data['{feed_data}'];
                 } else {
                     $setarr['template'] = '<b>{username}</b>：{content}';
-                    $setarr['content'] = $repostContent;
+                    $setarr['content'] = $repostContent;//add by zxx
                 }
                 $setarr['template'] .= $comment;
                 break;
@@ -138,9 +138,6 @@ class Feed extends \yii\db\ActiveRecord
         $setarr['feed_data'] = serialize($data);
         $setarr['user_id'] = Yii::$app->user->id;
         $setarr['created_at'] = time();
-        echo "<pre>";
-        print_R($setarr);
-        echo "</pre>";
         Yii::$app->userData->updateKey('feed_count', Yii::$app->user->id);
         return Yii::$app->db->createCommand()->insert('{{%home_feed}}', $setarr)->execute();
     }

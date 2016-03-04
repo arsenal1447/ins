@@ -1,10 +1,4 @@
-<?php
-/**
- * @link http://www.iisns.com/
- * @copyright Copyright (c) 2015 iiSNS
- * @license http://www.iisns.com/license/
- */
- 
+<?php 
 namespace frontend\controllers;
 
 use Yii;
@@ -15,6 +9,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
+use yii\web\Controller;
 use common\components\BaseController;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
