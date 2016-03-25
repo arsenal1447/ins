@@ -29,8 +29,8 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
-            ['verifyCode', 'required'],
-            ['verifyCode', 'captcha'],
+//             ['verifyCode', 'required'],
+//             ['verifyCode', 'captcha'],
         ];
     }
 

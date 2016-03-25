@@ -15,4 +15,4 @@ frontend/web/uploads/umeditor/*
 .idea
 
 common/config/db.php
-/vendor
+
